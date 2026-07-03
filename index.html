@@ -271,48 +271,33 @@ Confirmar Asistencia
 <form id="rsvpForm">
 
 <input
+id="nombre"
 type="text"
 placeholder="Nombre y apellido"
 required>
 
-<select required>
-
-<option>
-
-¿Asistirás?
-
-</option>
-
-<option>
-
-Sí
-
-</option>
-
-<option>
-
-No
-
-</option>
-
+<select id="asistencia" required>
+<option value="">¿Asistirás?</option>
+<option value="Sí">Sí</option>
+<option value="No">No</option>
 </select>
 
 <input
+id="acompanantes"
 type="number"
 placeholder="Cantidad de acompañantes">
 
 <input
+id="cancion"
 type="text"
 placeholder="Recomienda una canción">
 
 <textarea
-placeholder="Déjame un mensaje">
-</textarea>
+id="mensaje"
+placeholder="Déjame un mensaje"></textarea>
 
 <button type="submit">
-
 Enviar Confirmación
-
 </button>
 
 </form>
