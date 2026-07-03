@@ -48,15 +48,35 @@ enterButton.addEventListener("click",()=>{
 
 });
 
-// Confirmación
+// Confirmación por WhatsApp
 
 const formulario = document.getElementById("rsvpForm");
 
-formulario.addEventListener("submit",(e)=>{
-
+formulario.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    alert("🎉 ¡Gracias por confirmar tu asistencia! Nos vemos el 3 de Octubre.");
+    const nombre = formulario.querySelector('input[type="text"]').value;
+    const asistencia = formulario.querySelector("select").value;
+    const acompanantes = formulario.querySelector('input[type="number"]').value || "0";
+    const cancion = formulario.querySelectorAll('input[type="text"]')[1].value;
+    const mensaje = formulario.querySelector("textarea").value;
+
+    const texto =
+`🎉 *Confirmación de Asistencia*
+
+👤 Nombre: ${nombre}
+✅ Asistirá: ${asistencia}
+👥 Acompañantes: ${acomanantes}
+🎵 Canción: ${cancion}
+💬 Mensaje: ${mensaje}`;
+
+    const numero = "541128354615";
+
+    window.open(
+        `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`,
+        "_blank"
+    );
+});
 
 });
 
