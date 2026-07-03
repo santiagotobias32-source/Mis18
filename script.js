@@ -1,7 +1,4 @@
-// =========================
-// CONTADOR
-// =========================
-
+// Fecha del evento
 const evento = new Date("October 3, 2026 21:00:00").getTime();
 
 setInterval(() => {
@@ -9,67 +6,37 @@ setInterval(() => {
     const ahora = new Date().getTime();
     const diferencia = evento - ahora;
 
-    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
-    document.getElementById("days").textContent = dias;
-    document.getElementById("hours").textContent = horas;
-    document.getElementById("minutes").textContent = minutos;
-    document.getElementById("seconds").textContent = segundos;
+    document.getElementById("days").innerHTML = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    document.getElementById("hours").innerHTML = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    document.getElementById("minutes").innerHTML = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById("seconds").innerHTML = Math.floor((diferencia % (1000 * 60)) / 1000);
 
 }, 1000);
 
+// Pantalla de bienvenida
+document.getElementById("enterButton").onclick = function () {
 
-// =========================
-// BOTÓN ABRIR INVITACIÓN
-// =========================
+    document.getElementById("loader").style.opacity = "0";
 
-const loader = document.getElementById("loader");
-const enterButton = document.getElementById("enterButton");
+    setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+    }, 700);
 
-if (enterButton) {
+};
 
-    enterButton.addEventListener("click", () => {
+// Confirmación por WhatsApp
+document.getElementById("rsvpForm").addEventListener("submit", function(e){
 
-        loader.style.opacity = "0";
+    e.preventDefault();
 
-        setTimeout(() => {
+    const nombre = document.getElementById("nombre").value;
+    const asistencia = document.getElementById("asistencia").value;
+    const acompanantes = document.getElementById("acompanantes").value || "0";
+    const cancion = document.getElementById("cancion").value || "-";
+    const mensaje = document.getElementById("mensaje").value || "-";
 
-            loader.style.display = "none";
-
-        }, 600);
-
-    });
-
-}
-
-
-// =========================
-// FORMULARIO -> WHATSAPP
-// =========================
-
-const formulario = document.getElementById("rsvpForm");
-
-if (formulario) {
-
-    formulario.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-        const nombre = formulario.querySelector('input[type="text"]').value;
-
-        const asistencia = formulario.querySelector("select").value;
-
-        const acompanantes = formulario.querySelector('input[type="number"]').value || "0";
-
-        const cancion = formulario.querySelectorAll('input[type="text"]')[1].value || "No indicó";
-
-        const mensaje = formulario.querySelector("textarea").value || "Sin mensaje";
-
-        const texto =
-`🎉 *Confirmación de Asistencia*
+    const texto =
+`🎉 *Confirmación de Asistencia* 🎉
 
 👤 Nombre: ${nombre}
 ✅ Asistirá: ${asistencia}
@@ -77,47 +44,9 @@ if (formulario) {
 🎵 Canción: ${cancion}
 💬 Mensaje: ${mensaje}`;
 
-        const numero = "541128354615";
-
-        window.open(
-            `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`,
-            "_blank"
-        );
-
-    });
-
-}
-
-
-// =========================
-// ANIMACIONES
-// =========================
-
-const secciones = document.querySelectorAll("section");
-
-function mostrar() {
-
-    secciones.forEach(sec => {
-
-        if (sec.getBoundingClientRect().top < window.innerHeight - 120) {
-
-            sec.style.opacity = "1";
-            sec.style.transform = "translateY(0)";
-
-        }
-
-    });
-
-}
-
-secciones.forEach(sec => {
-
-    sec.style.opacity = "0";
-    sec.style.transform = "translateY(60px)";
-    sec.style.transition = "1s";
+    window.open(
+        "https://wa.me/541128354615?text=" + encodeURIComponent(texto),
+        "_blank"
+    );
 
 });
-
-window.addEventListener("scroll", mostrar);
-
-mostrar();
